@@ -1,60 +1,58 @@
 # Java Skills
 
-Skills de Java para agentes de código, derivadas das **Pílulas de Java do mestre Wanderlei Souza**.
+Java skills for coding agents, derived from **Wanderlei Souza's Pílulas de Java** ("Java Pills") series.
 
-Todo o conteúdo técnico — os problemas, os exemplos de código, as regras práticas — vem dessa série. Este repositório apenas reorganiza esse material no formato de skill: comprimido, roteado por sintoma e otimizado para custo de contexto.
+All the technical content — the problems, the code examples, the practical rules — comes from that series. This repository only reorganizes the material into skill form: compressed, routed by symptom, and optimized for context cost.
 
-## Estrutura
+## Structure
 
 ```
 skills/
-  <familia>/
-    SKILL.md        # roteador: frontmatter + tabela sintoma -> arquivo
-    <topico>.md     # conteúdo, carregado sob demanda
+  <family>/
+    SKILL.md        # router: frontmatter + symptom -> file table
+    <topic>.md      # content, loaded on demand
 ```
 
-Apenas os `SKILL.md` são descobertos pelo agente, e só a `description` de cada um entra em toda conversa. Os arquivos de tópico são lidos quando o roteador aponta para eles. Por isso as pílulas são agrupadas por família em vez de virarem uma skill cada: 11 descriptions carregadas em vez de 55.
+Only the `SKILL.md` files are discovered by the agent, and only their `description` enters every conversation. Topic files are read when the router points at them. That is why the pills are grouped into families instead of becoming one skill each: 11 descriptions loaded instead of 55.
 
-| Skill | Cobre |
+| Skill | Covers |
 |---|---|
 | `java-functional-style` | stream vs loop, Predicate/Function/Supplier/Consumer, `@FunctionalInterface`, boxing, Collectors, Optional |
-| `java-enums` | herança, EnumMap/EnumSet, comportamento na constante, serialização |
+| `java-enums` | extension, EnumMap/EnumSet, behavior on the constant, serialization |
 | `java-object-methods` | `equals`, `hashCode`, `toString`, `compareTo` |
-| `java-oo-design` | interfaces, herança vs composição, modelo anêmico, DI, builders, imutabilidade, visibilidade |
-| `java-error-handling` | captura, tradução, `finally`, Result, retry, exceções em contexto assíncrono |
-| `java-generics` | invariância e PECS, `@SuppressWarnings`, container heterogêneo tipado |
-| `java-concurrency` | race conditions, composição assíncrona, thread pools do Spring, virtual thread pinning |
-| `java-memory-and-resources` | vazamento de recursos, coleções sem limite, referências fracas, alocação |
-| `java-test-data` | fixtures de lista, Datafaker + Instancio |
-| `java-deserialization` | serialização nativa, gadget chains, `ObjectInputFilter` |
-| `marker-annotation-aop` | auditoria com marker annotation e Spring AOP |
+| `java-oo-design` | interfaces, inheritance vs composition, anemic models, DI, builders, immutability, visibility |
+| `java-error-handling` | catching, translating, `finally`, Result, retry, exceptions in async contexts |
+| `java-generics` | invariance and PECS, `@SuppressWarnings`, typesafe heterogeneous container |
+| `java-concurrency` | race conditions, async composition, Spring thread pools, virtual thread pinning |
+| `java-memory-and-resources` | resource leaks, unbounded collections, weak references, allocation |
+| `java-test-data` | list fixtures, Datafaker + Instancio |
+| `java-deserialization` | native serialization, gadget chains, `ObjectInputFilter` |
+| `marker-annotation-aop` | auditing with a marker annotation and Spring AOP |
 
-## Como o texto foi comprimido
+## How the text was compressed
 
-O post existe para convencer; a skill existe para o agente decidir. Toda frase que serve só para persuadir é token gasto. O que sobra:
+A post exists to persuade; a skill exists to let the agent decide. Every sentence that only persuades is a spent token. What remains:
 
-- **gatilho** — a `description`, escrita como sintoma ("um objeto sumiu do HashSet"), nunca como resumo do conteúdo
-- **regra** — tabela de decisão sempre que a prosa já era uma lista
-- **contra-exemplo** — o código AVOID/USE, com comentário só onde ele diz o *porquê*
-- **red flags** — o que procurar num diff
+- **trigger** — the `description`, written as a symptom ("an object went missing from a HashSet"), never as a summary of the content
+- **rule** — a decision table wherever the prose was already a list
+- **counter-example** — the AVOID/USE code, commented only where the comment says *why*
+- **red flags** — what to look for in a diff
 
-Cortado sistematicamente: definições de API que o modelo já sabe, evidência que só argumenta prevalência, perguntas de engajamento, e o segundo exemplo quando ele repete a forma do primeiro.
+Cut systematically: definitions of standard APIs the model already knows, evidence that only argues prevalence, engagement questions, and the second example when it repeats the shape of the first.
 
-Os arquivos estão em inglês por custo de token, não por preferência.
+## Additions
 
-## Acréscimos
+Some files carry points that were not in the original posts — boundaries of a rule, silent failure modes, and adjacent traps. A few examples:
 
-Alguns arquivos trazem pontos que não estavam nos posts originais — limites de regra, modos de falha silenciosa e armadilhas vizinhas. Alguns exemplos:
+- a `record` is not automatically immutable: a `List` field needs `List.copyOf`
+- `reversed()` reverses the whole `Comparator` chain, not the last key
+- retrying a non-idempotent write can charge twice
+- `@Enumerated` defaults to `ORDINAL`, which breaks when constants are reordered
+- `ThreadPoolTaskExecutor` only grows once the queue is full
+- hoisting `SimpleDateFormat` into a `static final` field trades allocation for data corruption
 
-- `record` não é automaticamente imutável: campo `List` precisa de `List.copyOf`
-- `reversed()` inverte a cadeia inteira de um `Comparator`, não a última chave
-- retry em escrita não idempotente pode cobrar duas vezes
-- `@Enumerated` no default é `ORDINAL` e quebra ao reordenar constantes
-- `ThreadPoolTaskExecutor` só cresce quando a fila enche
-- hoistar `SimpleDateFormat` para `static final` troca alocação por corrupção de dados
+They are marked in the text where they change how the original rule reads.
 
-Eles são marcados no texto quando alteram a leitura da regra original.
+## Credit
 
-## Crédito
-
-Conteúdo original: **Wanderlei Souza** — Pílulas de Java.
+Original content: **Wanderlei Souza** — Pílulas de Java.
