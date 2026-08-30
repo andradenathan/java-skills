@@ -4,6 +4,24 @@ Java skills for coding agents, derived from **Wanderlei Souza's Pílulas de Java
 
 All the technical content — the problems, the code examples, the practical rules — comes from that series. This repository only reorganizes the material into skill form: compressed, routed by symptom, and optimized for context cost.
 
+## Install
+
+```sh
+./install.sh
+```
+
+Symlinks every skill into `~/.claude/skills`, so a `git pull` updates them in place. Start a new Claude Code session to pick them up.
+
+| Flag | Effect |
+|---|---|
+| `--copy` | copy instead of symlinking (for a machine that will not keep this repo) |
+| `--target DIR` | install elsewhere — e.g. `--target ./.claude/skills` to scope them to one project |
+| `--list` | show which skills are installed and how |
+| `--uninstall` | remove the skills this repo installed |
+| `--force` | overwrite (or remove) a target directory that is not ours |
+
+The script never clobbers a skill directory it did not install: an unrelated `java-enums` already in the target is skipped, on install and on uninstall alike, unless you pass `--force`. `CLAUDE_SKILLS_DIR` works as a default for `--target`.
+
 ## Structure
 
 ```
